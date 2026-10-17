@@ -1,0 +1,51 @@
+UBOAT Save FPS Fix 0.1.0 — validation
+
+Release check: 2026-10-18T00:01:56+03:00
+Script SHA256: 1536407d19d5fd912e80bd3366f8bb37eccd3f818a348674d88d135b82af9df5
+Python tested: 3.12.14; supported syntax: Python 3.10+
+Game build: 2026.1 Patch 21
+Campaign InitialVersion: 2024.1 Full Release Patch 2
+
+30 automated tool checks passed across three suites.
+
+Real-save coverage is six source states from ONE Windows campaign: two affected
+sea saves, a port save and three later save/load checks. This is not independent
+validation of every game version, platform, campaign, ship or mod combination.
+
+Positive checks:
+- Repaired sea outputs match the previously independently checked 08/09 raw
+  files exactly: 32/64 changes, exclusively true-to-false activeSelf bytes.
+- Existing repaired state produces no unnecessary save copy.
+- Matching works after a synthetic captain-name change; no sample player's
+  name is hardcoded.
+- A synthetic pre-existing achievement lockout remains true after repair.
+- Default unique output naming and Unicode input paths work.
+- Port and later save states preserve the real crew and skipper references.
+
+Refusal checks:
+- Truncated/trailing/invalid DEFLATE, unsupported structure, invalid boolean.
+- Existing output/report, input/output/report aliases, existing hardlink.
+- Compressed and expanded size limits.
+- Entity/story links, enrollment/command/death history, interaction history,
+  temporary/preview flags. Nine independent negative checks used Python -O:
+  validation remains active without Python assertions.
+
+The original fixtures were unchanged. No test wrote to installed game files or
+the player's Saves folder. Private fixtures are deliberately not distributed.
+
+HTML checks passed in a headless installed Microsoft Edge browser:
+- English/Russian/German/Polish/French, complete translation keys.
+- Desktop 1440px and mobile 390px without page-wide horizontal overflow.
+- Language persistence, four copy buttons, valid local links.
+- English content readable with JavaScript disabled.
+- Zero script errors and zero external asset/network requests.
+- Desktop/mobile screenshots were visually inspected.
+
+The utility's new files were validated offline. In-game evidence is the player's
+earlier test of equivalent repair 08 and the following three saves. Save 09 was
+validated offline only. Before-repair FPS was about 15–25; no precise controlled
+after-repair FPS benchmark was recorded. The original creation trigger remains
+unknown, and this tool cannot guarantee future game behavior or Steam awards.
+
+VALIDATION.json contains a sanitized per-check summary.
+SHA256SUMS.txt verifies the files shipped in this package.

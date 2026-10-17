@@ -1,0 +1,86 @@
+UBOAT: persistent low FPS at sea linked to extra World skipper objects
+Community diagnostic report, 17 October 2026
+No report has been submitted by the tool author. This file is a draft for the player to review and send.
+
+OBSERVED PROBLEM AND RESULT
+
+A long-running Windows campaign exhibited approximately 15–25 FPS after loading a save at sea. A full restart followed by loading a minimally repaired copy restored normal FPS according to the player. A precise after-repair FPS range was not recorded. Three later saves continued to play normally after the player's save/load and restart checks.
+
+The affected saves contained extra active World copies of the player's skipper outside PlayerCrew.characters. One source save contained 59 character objects: 27 real crew and 32 extra skipper objects. A second contained 91: the same real crew count and 64 extras. The second repaired save was validated offline, but has not been tested in the game. These two counts alone do not establish a 32-object increase on every load.
+
+The campaign's saved InitialVersion is 2024.1 Full Release Patch 2. The current installed game and the affected saves' Version are 2026.1 Patch 21. These metadata establish the old-campaign/current-build distinction, but they do not establish that an upgrade created the extra objects. The event that first created the extras and a reproduction sequence for creating new duplicates remain unknown. Please include the actual mod list with the original save or in-game report.
+
+READ-ONLY DIAGNOSTIC METHOD
+
+The affected running process was observed using Windows PSS thread-context snapshots and limited ReadProcessMemory calls. There were no writes to the game process, injected modules, remote function calls, debugger attachment, SuspendThread calls, console commands, or changes to installed game files. Exact UnityPlayer and Mono symbols were matched against the installed PE debug GUID/age. Stack unwinding and symbol analysis were performed offline from recorded contexts, stack bytes and local image unwind data. Bounded Mono JIT metadata reads resolved the managed caller methods.
+
+Context capture and the subsequent stack read were not atomic (approximately 2 ms apart). The agreement between repeated stacks and reconstructed arguments supports the finding, but the samples are not a complete CPU trace or an exact timing breakdown.
+
+NATIVE AND MANAGED HOT PATH
+
+Of 200 instruction-pointer observations on the hot main thread, 143 landed in NavMesh polygon-query processing (71.5% of observations, not an exact percentage of CPU time).
+
+Seventeen validated captured stacks agreed on the following path, shown from caller to callee:
+
+  NavMeshNavigator.SnapToNavMesh(bool)
+  NavMeshNavigator.SnapToNavMesh(bool, float) [outer call]
+  NavMeshNavigator.SnapToNavMesh(bool, float) [recursive fallback]
+  UnityEngine.AI.NavMesh.SamplePosition
+  NavMesh_CUSTOM_SamplePosition_Injected
+  NavMeshManager::SamplePosition
+  NavMeshQuery::FindNearestPoly
+  NavMesh::QueryPolygons
+  NavMesh::QueryPolygonsInTile / polygon-processing helpers
+
+In all 17 matching stacks, the reconstructed arguments were:
+  areaMask = 16 (World)
+  maxDistance = 6000.0
+  source approximately (-1802.909912, 2.160004, -499.699982)
+
+The local installed navigation logic first attempts small-radius searches and can recursively retry at 6000 m when the normal attempt fails and the layer remains unchanged. Its Update path can repeat the operation. The sampled call is therefore the explicit managed SamplePosition fallback, rather than merely an inferred generic native NavMeshAgent update. No full decompiled game code is redistributed in this package.
+
+SAVE-STATE FINDING
+
+The extra objects are separate from the real skipper confirmed through PlayerCrew.skipper and the real crew list. Their serialized navigation uses World (16), agentMode Enabled, and the same source position as the observed hot path. Their GameObject activeSelf flags were true. The extra objects had entity/storyCharacterGroup = null and enrollmentTicks = 0. Their component set did not contain SceneObject. The real skipper and the other 26 crew members were preserved.
+
+These properties and the matching stack arguments link the saved extras to the expensive sampled path. The controlled repaired-copy test provides additional causal evidence for this campaign. This does not establish that every World-layer character with similar fields is invalid; classification must also exclude all legitimate crew and other intended game objects.
+
+MINIMAL REPAIR AND VALIDATION
+
+The successful first experiment changed exactly 32 decompressed bytes: only the selected extra GameObjects' activeSelf values changed from true to false. The objects, IDs, references and list counts were retained. No global navigation setting was changed. The second experiment changed the corresponding 64 activation bytes and was validated offline only.
+
+Independent checks confirmed valid complete DEFLATE streams, the expected raw lengths, unchanged metadata/preview data and exact raw differences limited to these activation bytes. Restoring only those bytes reproduced the original decompressed data. Original files and installed game files were not edited.
+
+The player subsequently produced three new saves. Each retained 32 inactive extras, zero active extras and 27 real crew members. The player reported normal FPS in those checks. This is encouraging persistence evidence for that repaired branch, not proof that the game can never recreate the objects or that every transition has been tested. Return-to-port and a subsequent departure remain useful additional checks.
+
+ACHIEVEMENTS
+
+The tested source files' achievement-lockout flag was false and remained false. The reusable tool preserves either original value exactly; it does not change a true flag to false, unlock achievements, or make Steam achievement API calls. Preserving that flag does not by itself guarantee Steam will award a particular achievement.
+
+CODE-FIX HYPOTHESES FOR DEVELOPER REVIEW
+
+1. Investigate ownership, lifecycle, registration and cleanup of these extra World skipper objects across save loading and campaign teardown. Their first triggering sequence has not been reproduced. Check how objects outside the real crew become reachable by the save graph and whether objects without SceneObject can survive transitions without being unregistered. MainMenu/preview creation is only an unproven possible avenue for investigation; the observed extras do not match the current preview object's invariants, so this report does not identify preview creation as their source.
+
+2. Ensure invalid, unused or deactivated navigators cannot repeatedly enter the large-radius fallback every Update. Consider a validity guard and a bounded retry/backoff until the relevant navigation surface or layer changes. Preserve the intended recovery behavior for real crew and legitimate World agents.
+
+3. For already affected saves, consider a narrowly defined migration that identifies unintended extra World skipper objects using ownership and crew references. Do not delete objects by character name or broadly disable all World navigators. The community experiment retained the full reference graph and only deactivated verified extras.
+
+4. Test from a fresh process and after repeated load/save transitions, MainMenu transitions, returning to port and leaving port. Loading a known bad save into an already running session may contaminate a subsequent test; a fresh process is the clean baseline.
+
+SUGGESTED REPORT MATERIALS AND VERIFICATION
+
+The player can reproduce the current bad state by restarting UBOAT and loading an original affected save, then compare it with the repaired copy after another full restart. Check the real skipper and crew behavior as well as FPS. The original creation trigger requires a separate investigation.
+
+Please include the actual game build, mod list, affected original save and logs in the report. Inspect any publicly shared diagnostics for personal file paths and character information. The package itself intentionally contains no personal save or installed game binaries.
+
+Deep Water Studio's official announcement recommends the in-game bug reporter, assigned to F11 by default, because it sends useful diagnostic data:
+https://store.steampowered.com/news/posts/?appids=494840&enddate=1582820594&feed=steam_community_announcements
+This is the developer's 6 September 2019 Early Access Roadmap statement. It verifies the reporting recommendation, not current server availability, an exact attachment workflow, or availability from the main menu. Check the current report dialog and confirm the intended save/log attachments before sending.
+
+The pinned community support post by Ruby additionally instructs players to load the affected save, press F11, describe the problem and attach the save:
+https://steamcommunity.com/app/494840/discussions/0/3075370188246703613/
+This is the hub community officer's practical instruction. It does not establish automatic attachment behavior or current reporting-service availability.
+
+COMMUNITY TOOL
+
+uboat_save_fps_fix.py is readable local Python source, uses Python 3.10+ standard-library modules and processes files offline. It reads the save's serialized schemas and refuses unrecognized or ambiguous structures. The original input and existing outputs cannot be overwritten. The user can run --dry-run before creating a separate output file. Its exact package validation coverage is described in VALIDATION.txt. It is not an official developer patch or a general FPS fix.

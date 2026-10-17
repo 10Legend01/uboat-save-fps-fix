@@ -1,0 +1,218 @@
+{
+  "release_version": "0.1.0",
+  "checked_at": "2026-10-18T00:01:56+03:00",
+  "tool_sha256": "1536407d19d5fd912e80bd3366f8bb37eccd3f818a348674d88d135b82af9df5",
+  "python_tested": "3.12.14",
+  "game_build_tested": "2026.1 Patch 21",
+  "campaign_initial_version": "2024.1 Full Release Patch 2",
+  "scope": "One Windows campaign, six source save states, plus synthetic negative cases. Not validation of every release or mod.",
+  "automated_tool_checks": 30,
+  "all_tool_checks_passed": true,
+  "tests": [
+    {
+      "suite": "regression",
+      "test": "help",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "suite": "regression",
+      "test": "sea_repair",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "suite": "regression",
+      "test": "sea2_repair",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "suite": "regression",
+      "test": "dry_run_no_save",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "suite": "regression",
+      "test": "already_clean_no_copy",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "suite": "regression",
+      "test": "generic_captain_name",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "suite": "regression",
+      "test": "achievement_true_preserved",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "suite": "regression",
+      "test": "truncated_deflate",
+      "passed": true,
+      "exit_code": 2
+    },
+    {
+      "suite": "regression",
+      "test": "trailing_deflate",
+      "passed": true,
+      "exit_code": 2
+    },
+    {
+      "suite": "regression",
+      "test": "not_a_save",
+      "passed": true,
+      "exit_code": 2
+    },
+    {
+      "suite": "regression",
+      "test": "unsupported_raw_structure",
+      "passed": true,
+      "exit_code": 2
+    },
+    {
+      "suite": "regression",
+      "test": "invalid_achievement_boolean",
+      "passed": true,
+      "exit_code": 2
+    },
+    {
+      "suite": "regression",
+      "test": "existing_output_refused",
+      "passed": true,
+      "exit_code": 2
+    },
+    {
+      "suite": "regression",
+      "test": "input_as_output_refused",
+      "passed": true,
+      "exit_code": 2
+    },
+    {
+      "suite": "regression",
+      "test": "existing_report_refused",
+      "passed": true,
+      "exit_code": 2
+    },
+    {
+      "suite": "regression",
+      "test": "report_matches_output_refused",
+      "passed": true,
+      "exit_code": 2
+    },
+    {
+      "suite": "regression",
+      "test": "report_matches_input_refused",
+      "passed": true,
+      "exit_code": 2
+    },
+    {
+      "suite": "independent_optimized_python",
+      "test": "entity_nonnull",
+      "passed": true,
+      "exit_code": 2,
+      "optimized_python": true
+    },
+    {
+      "suite": "independent_optimized_python",
+      "test": "storyCharacterGroup_nonnull",
+      "passed": true,
+      "exit_code": 2,
+      "optimized_python": true
+    },
+    {
+      "suite": "independent_optimized_python",
+      "test": "enrollmentTicks_nonzero",
+      "passed": true,
+      "exit_code": 2,
+      "optimized_python": true
+    },
+    {
+      "suite": "independent_optimized_python",
+      "test": "commandStartTicks_nonzero",
+      "passed": true,
+      "exit_code": 2,
+      "optimized_python": true
+    },
+    {
+      "suite": "independent_optimized_python",
+      "test": "deathTicks_nonzero",
+      "passed": true,
+      "exit_code": 2,
+      "optimized_python": true
+    },
+    {
+      "suite": "independent_optimized_python",
+      "test": "wasSeenUpclose_true",
+      "passed": true,
+      "exit_code": 2,
+      "optimized_python": true
+    },
+    {
+      "suite": "independent_optimized_python",
+      "test": "isTemporaryRepresentation_true",
+      "passed": true,
+      "exit_code": 2,
+      "optimized_python": true
+    },
+    {
+      "suite": "independent_optimized_python",
+      "test": "ignoreSkills_true",
+      "passed": true,
+      "exit_code": 2,
+      "optimized_python": true
+    },
+    {
+      "suite": "independent_optimized_python",
+      "test": "invalid_achievement_boolean",
+      "passed": true,
+      "exit_code": 2,
+      "optimized_python": true
+    },
+    {
+      "suite": "limits_and_paths",
+      "test": "max-compressed-mib_limit_refused",
+      "passed": true
+    },
+    {
+      "suite": "limits_and_paths",
+      "test": "max-expanded-mib_limit_refused",
+      "passed": true
+    },
+    {
+      "suite": "limits_and_paths",
+      "test": "existing_hardlink_refused",
+      "passed": true
+    },
+    {
+      "suite": "limits_and_paths",
+      "test": "automatic_unique_copy_with_unicode_input_path",
+      "passed": true
+    }
+  ],
+  "html_languages": [
+    "en",
+    "ru",
+    "de",
+    "pl",
+    "fr"
+  ],
+  "html_desktop_and_mobile": true,
+  "html_language_preference_persisted": true,
+  "html_copy_buttons_tested": [
+    "dry-command",
+    "fix-command",
+    "python-code",
+    "forum-summary"
+  ],
+  "html_english_readable_without_javascript": true,
+  "html_script_errors": [],
+  "html_external_requests": [],
+  "html_broken_local_links": [],
+  "privacy": "Private fixtures, paths, raw runtime captures and personal saves are excluded."
+}

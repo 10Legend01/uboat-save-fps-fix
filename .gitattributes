@@ -1,0 +1,11 @@
+# Preserve original release bytes so SHA256SUMS.txt survives Git checkouts.
+# -text disables line-ending conversion; normal text diffs still work.
+*.py -text
+*.html -text
+*.json -text
+*.txt -text
+
+# Repository-only metadata can use normal LF text.
+*.md text eol=lf
+.gitignore text eol=lf
+.gitattributes text eol=lf

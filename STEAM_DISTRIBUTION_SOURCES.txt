@@ -1,0 +1,71 @@
+Steam distribution research — checked 17 October 2026
+Primary platform documentation unless explicitly described otherwise.
+No content has been uploaded, posted or published.
+
+RECOMMENDED DISTRIBUTION
+
+Use one relevant UBOAT discussion containing a short explanation and BBCode links. If a longer Steam-native guide is useful, adapt the player instructions into its text/image/table editor. Publish the reviewed Python source and downloadable ZIP on a host controlled by the author, for example a public GitHub repository with a versioned Release. The self-contained index.html can be included in that ZIP for offline reading; GitHub Pages can optionally host the same guide for direct browser viewing.
+
+GitHub is an authoring/distribution recommendation, not a Steam-approved security status or a guarantee that a particular link will pass Steam moderation/filtering. Do not describe an unpublished repository or release as already online. This prepared publication copy includes repository, guide and release URLs; remote availability was not checked by this source-note audit.
+
+VERIFIED STEAM FEATURES
+
+1. Discussion formatting
+https://steamcommunity.com/comment/ForumTopic/formattinghelp
+Valve's own formatting help documents BBCode-style headings, emphasis, spoilers, lists, quotations, [code] blocks and [url=...] hyperlinks. It documents automatic widgets for plain YouTube URLs and selected Steam URLs. [code] displays text in a fixed-width format; this is not a Python execution facility.
+
+2. Guides overview
+https://steamcommunity.com/guides?l=english
+Valve describes player-created guides, creation from a game's Community Hub > Guides > Create a Guide, a table of contents, uploaded images, published Steam screenshots, YouTube video insertion, tables and formatted text. A guide becomes public when its author publishes it.
+
+3. Guide formatting
+https://steamcommunity.com/comment/Guide/formattinghelp
+Valve documents the same BBCode-style formatting plus table markup. This provides a supported way to copy a guide's text into Steam.
+
+4. HTML/JavaScript and arbitrary ZIP attachments — evidence boundary
+The official discussion/guide pages above do not document an arbitrary HTML/ZIP attachment uploader, embedding an independent HTML document, or executing the author's JavaScript in a discussion or guide. Therefore this package should not promise those capabilities. The documented approach is text/BBCode, supported media and hyperlinks. This is a statement about verified features, not a claim that a specific Steam rule explicitly bans all HTML/ZIP links or that every Steam UGC surface has identical upload limits. Steam Workshop is a separate game-supported publishing system, not a documented substitute for attaching any file to a forum post.
+
+POLICY AND EXTERNAL LINKS
+
+5. Steam Rules and Guidelines for Discussions, Reviews and UGC
+https://help.steampowered.com/en/faqs/view/6862-8119-C23E-EA7B
+Contributions must be relevant and constructive. Spam, off-topic posting and commercial activity such as advertisements/referral promotions are restricted. Do not share content without rights, personal information, scams or unlawful content. Moderators apply the rules case by case and examples are not exhaustive. The retrieved current general policy does not state a blanket prohibition on every external utility/source-code link or list GitHub Releases/Pages as approved or trusted. That absence does not guarantee acceptance by a particular game's moderators.
+
+6. Steam Online Conduct
+https://store.steampowered.com/online_conduct/
+General conduct rules apply to Steam content and prohibit, among other things, fraud, impersonation, doxing and spam. No claim is made that a link host gives an exemption from these rules.
+
+7. Steam Account Security Recommendations
+https://help.steampowered.com/en/faqs/view/6639-EB3C-EC79-FF60
+Valve warns about unknown/untrusted links and malware disguised as game-adjacent utilities. This supports transparent source, an identifiable author and no misleading Steam-login request. It does not establish a blanket ban on benign downloadable Python scripts or endorse this package. A readable .py file still executes code when the user runs it; inspectability is useful, not a security guarantee.
+
+8. GitHub Releases (GitHub's own documentation)
+https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases
+GitHub Releases package software for download and support release assets. GitHub also supplies ZIP/tar source archives at a release tag. Thus a versioned ZIP plus inspectable source is a supported GitHub distribution feature. Whether the author creates a public repository and which license/version they publish remain author decisions; remote availability was not checked by this source-note audit.
+
+9. GitHub Pages (GitHub's own documentation)
+https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages
+GitHub Pages is static hosting for HTML, CSS and JavaScript from a repository. Public repositories can use it with GitHub Free. Thus it is a technically suitable optional host for the package's static guide. This is external hosting and does not turn the HTML into a native Steam guide. The offline ZIP version remains usable without hosting.
+
+UBOAT BUG REPORTING
+
+10. Official Deep Water Studio announcement: Early Access Roadmap, 6 September 2019
+https://store.steampowered.com/news/posts/?appids=494840&enddate=1582820594&feed=steam_community_announcements
+The final announcement in this official UBOAT news feed recommends the in-game bug reporter, assigned to F11 by default, and says it sends useful diagnostic data. This is direct developer evidence for that recommendation. It is historical and does not verify current service uptime or every current UI detail.
+Important: the same text says the OLD BUG-FORUM LINK was removed from the main menu. It does not say F11 is currently available from the main menu. Do not conflate those statements.
+
+11. Pinned UBOAT community support instructions, Ruby (shown as community officer)
+https://steamcommunity.com/app/494840/discussions/0/3075370188246703613/
+The pinned Known issues / solutions post instructs players to load the save, press F11, describe the issue and send the save as an attachment. This is a primary instruction by the hub's community support author, rather than a separate current Deep Water Studio engineering specification. The search-indexed version showed an edit on 18 February 2025; other indexed revisions are newer. Use the stable discussion URL, inspect the current dialog and confirm the intended save/log attachment. Do not assert attachments are always automatic or that F11 works from the main menu based only on these sources.
+Retrieved indexed version containing the exact English instructions:
+https://steamcommunity.com/app/494840/discussions/0/3075370188246703613/?ctp=53&l=greek
+
+UBOAT LANGUAGES
+
+12. Official current UBOAT store page
+https://store.steampowered.com/app/494840/UBOAT/
+English, Russian, German, Polish and French are all listed for interface and subtitles. Of those five, English and German are also marked for full audio. The page lists 14 languages in total; the guide's five-language selection is a subset, not the game's complete language list.
+
+PUBLICATION CHECKS FOR THE AUTHOR
+
+The documentation includes repository, Pages and release links. Do not upload personal saves, private diagnostics or game DLL/decompiled code with the tool. The proposed package is the utility's own readable source plus documentation. Read the selected hub/subforum's current pinned rules and choose the relevant support/modding category. Keep the post factual and non-commercial. These are practical recommendations, not a new Valve approval workflow, and remote publication availability was not checked by this audit.

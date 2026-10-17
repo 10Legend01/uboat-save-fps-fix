@@ -1,0 +1,42 @@
+TITLE
+Low FPS after loading a save at sea: targeted fix for extra World skipper objects
+
+BODY — Steam BBCode draft
+
+[h1]A save repair for one identified cause of low FPS[/h1]
+An affected long-running campaign, created in 2024.1 Full Release Patch 2 and played in 2026.1 Patch 21, dropped to roughly 15–25 FPS after loading at sea. Read-only diagnostics traced the main-thread hotspot to repeated NavMesh.SamplePosition calls with a 6,000 m search radius. The saves contained extra active World copies of the player's skipper outside the real crew: 32 in one save and 64 in another. This does not establish that a version upgrade caused the problem.
+
+A repaired copy of the first save restored normal FPS according to the player after a full game restart. No precise after-repair FPS range was recorded. Three subsequent saves also played normally and retained 32 inactive extra objects, no active extras, and all 27 real crew members. The second save's 64-object repair has been checked offline but has not been tested in the game.
+
+This utility targets that specific saved-object problem. It is not a general FPS optimizer, and similar symptoms can have other causes. The original creation trigger and a permanent prevention method are still unconfirmed.
+
+[h2]Download and readable source[/h2]
+[url=https://github.com/10Legend01/uboat-save-fps-fix]Source repository[/url]
+[url=https://github.com/10Legend01/uboat-save-fps-fix/releases/tag/v0.1.0]Download the reviewed package and Python source[/url]
+[url=https://10legend01.github.io/uboat-save-fps-fix/]Read the multilingual guide[/url]
+
+The package contains a readable local Python script, documentation and an offline HTML guide in English, Russian, German, Polish and French. Open index.html in a browser after extracting the package. Python 3.10 or newer is needed only to run the repair; the script uses the standard library. This is a community utility, not an official Deep Water Studio or Valve release.
+
+[h2]How to try it[/h2]
+[olist]
+[*]Fully close UBOAT and keep the original save.
+[*]Extract the package and open a terminal in that folder.
+[*]Check a save without writing a repaired copy:
+[/olist]
+[code]python uboat_save_fps_fix.py "C:\path\to\MySave.save" --dry-run[/code]
+Create a new copy under a new name:
+[code]python uboat_save_fps_fix.py "C:\path\to\MySave.save" --output "C:\path\to\MySave_FPS_FIXED.save"[/code]
+Start UBOAT and load the new copy. After a successful test, save under another new name, restart, and check that save too. A return to port and another departure are useful additional checks. If you load a known bad save in the same running session, restart before returning to the repaired branch.
+
+[h2]What changes[/h2]
+The script identifies the real skipper through the crew's serialized references, then checks separate World skipper objects against a narrow set of structural conditions. It changes only each positively identified unwanted object's activeSelf flag from true to false. It does not delete objects or disable the real crew's navigation.
+
+The original input is never overwritten. Existing output files are refused. The script validates that the decompressed result differs only at the selected activation bytes and preserves the other saved data. Unrecognized or ambiguous structures are refused. Compatibility with every UBOAT release, platform and mod has not been established.
+
+[h2]Achievements[/h2]
+The campaign's original achievement-lockout flag is preserved exactly, whether true or false. The tool does not unlock achievements or remove an existing lockout. This does not guarantee that Steam will award any particular achievement; the game and Steam still determine whether its conditions are met.
+
+[h2]If you report a result[/h2]
+Please include the game version, whether mods are used, whether the tool recognized extras, and whether FPS improved after a full restart. Review local diagnostic reports before sharing them: they can contain file paths and character information. Do not post personal saves publicly unless you want their contents shared.
+
+For the developers, the package includes DEVELOPER_REPORT_EN.txt with the stack evidence, minimal save change and remaining uncertainties. The [url=https://steamcommunity.com/app/494840/discussions/0/3075370188246703613/]pinned UBOAT community support instructions[/url] say to load the affected save, press F11, describe the problem and attach the save. Check the current report dialog before submitting.

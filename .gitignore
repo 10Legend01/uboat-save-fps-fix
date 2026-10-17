@@ -1,0 +1,41 @@
+# Personal saves, raw fixtures and runtime captures must remain local.
+*.save
+*.raw
+*.inflated
+*.dmp
+*.dump
+*.pdb
+*.dll
+*.log
+*.repair.json
+repair.json
+repair-*.json
+private/
+fixtures/private/
+runtime_captures/
+work/
+outputs/
+
+# Release archives belong in release assets, not this source tree.
+*.zip
+*.7z
+*.rar
+
+# Local Python and editor artifacts.
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
+
+# Local credentials and configuration.
+.env
+.env.*
+*.pem
+*.key
